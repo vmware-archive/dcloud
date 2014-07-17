@@ -20,7 +20,7 @@ Overview
 ====================
 dcloud is a tool to orchestrate Docker containers.
 
-![dcloud design diagram](browse/doc/diagram1.jpg?raw)
+![dcloud design diagram](https://raw.githubusercontent.com/gopivotal/dcloud/master/doc/diagram1.jpg)
 
 Prerequites
 ==========================
