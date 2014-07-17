@@ -1,0 +1,134 @@
+#!bash
+
+# Copyright (C) 2013-2014 Pivotal Software, Inc.
+#
+# All rights reserved. This program and the accompanying materials
+# are made available under the terms of the under the Apache License,
+# Version 2.0 (the "License”); you may not use this file except in compliance
+# with the License. You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+
+__dcloud_clusters(){
+	local clusters="$(dcloud list | tail -n +2)"
+	COMPREPLY=( $( compgen -W "$clusters" -- "$cur" ) )
+}
+
+_dcloud_create(){
+	case "$prev" in
+        -id)
+            return
+            ;;
+        *)
+            ;;
+    esac
+
+    case "$cur" in
+        -*)
+            COMPREPLY=( $( compgen -W "-id" -- "$cur" ) )
+            ;;
+        *)
+			_filedir
+			AA=${COMPREPLY[@]}
+			COMPREPLY=( $( compgen -W "$AA -id" -- "$cur" ) )
+            ;;
+    esac
+
+}
+
+_dcloud_dcloud(){
+	case "$prev" in
+		-H)
+			return
+			;;
+		*)
+			;;
+	esac
+
+	case "$cur" in
+		-*)
+			COMPREPLY=( $( compgen -W "-H" -- "$cur" ) )
+			;;
+		*)
+			COMPREPLY=( $( compgen -W "$commands help" -- "$cur" ) )
+			;;
+	esac
+
+}
+
+_dcloud_list(){
+	if [[ ${prev} == list ]]; then 
+		__dcloud_clusters
+	fi
+}
+
+_dcloud_destroy(){
+	if [[ ${prev} == destroy ]]; then 
+		__dcloud_clusters
+	fi
+}
+
+_dcloud_snapshot(){
+	if [[ ${prev} == snapshot ]]; then 
+		__dcloud_clusters
+	fi
+
+}
+
+_dcloud_hostsfile(){
+	__dcloud_clusters
+}
+
+_dcloud_deletesnapshot(){
+	__dcloud_clusters
+}
+
+_dcloud(){
+	local commands="
+				init
+				create
+				list
+				hostsfile
+				destroy
+				snapshot
+				deletesnapshot
+			"
+	COMPREPLY=()
+	local cur prev words cword
+	_get_comp_words_by_ref -n : cur prev words cword
+
+	local command='dcloud'
+	local counter=1
+	while [ $counter -lt $cword ]; do
+		case "${words[$counter]}" in
+			-H)
+				(( counter++ ))
+				;;
+			-*)
+				;;
+			*)
+				command="${words[$counter]}"
+				cpos=$counter
+				(( cpos++ ))
+				break
+				;;
+		esac
+		(( counter++ ))
+	done
+
+	local completions_func=_dcloud_${command}
+	declare -F $completions_func >/dev/null && $completions_func
+
+	return 0
+
+}
+
+complete -F _dcloud dcloud
+

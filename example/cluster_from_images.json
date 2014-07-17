@@ -1,0 +1,12 @@
+{
+	"id" : "example_cluster1",
+	"domain" : "mydomain.com",
+	"dns" : ["8.8.8.8", "8.8.4.4"],
+	"nodes": [
+		{
+			"hostname" : "node[1..3]",
+			"imageName" : "dcloud/ssh-base",
+			"cmd" : "service sshd start && tail -f /var/log/yum.log"
+		}
+	]
+}

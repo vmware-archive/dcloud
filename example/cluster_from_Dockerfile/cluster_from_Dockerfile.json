@@ -1,0 +1,12 @@
+{
+	"id" : "example_cluster2",
+	"domain" : "mydomain.com",
+	"dns" : ["8.8.8.8", "8.8.4.4"],
+	"nodes": [
+		{
+			"hostname" : "node[1..2]",
+			"Dockerfile" : "example/cluster_from_Dockerfile/.",
+			"cmd" : "service sshd start && service httpd start && tail -f /var/log/yum.log"
+		}
+	]
+}
