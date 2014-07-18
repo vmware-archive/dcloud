@@ -61,6 +61,11 @@ pip install paramiko
 easy_install --upgrade ecdsa
 
 ```
+If you are using Debian
+```
+apt-get install gcc
+apt-get install python-dev
+```
 
 ### Docker
 Refer to the Docker Installation document. Currently version 0.11.1 is recommended
