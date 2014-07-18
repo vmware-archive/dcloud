@@ -29,7 +29,7 @@ Host OS
 -----------
 Currently Centos65, Redhat65 and Ubuntu13 are supported.
 
-MacOS support is NOT suported currently https://jira.greenplum.com/browse/HDQA-87
+MacOS is NOT suported
 
 python
 -----------
@@ -60,13 +60,6 @@ pip install pycrypto
 pip install paramiko
 easy_install --upgrade ecdsa
 
-```
-
-For OSX
-
-```
-brew install python
-pip install paramiko
 ```
 
 ### Docker
