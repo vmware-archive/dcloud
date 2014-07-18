@@ -99,7 +99,7 @@ cat installedFiles.txt  | sudo xargs rm -rf
 
 How to use dcloud
 =======================
-Please note that you run dcloud command as root user at this point. We have a ticket to fix this limitation https://jira.greenplum.com/browse/HDQA-85
+Please note that you run dcloud command as root user at this point. We have a ticket to fix this limitation https://github.com/gopivotal/dcloud/issues/2
 
 Initialization
 ---------------
