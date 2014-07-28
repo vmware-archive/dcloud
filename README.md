@@ -192,3 +192,11 @@ unit test
 ```
 nosetests test
 ```
+
+Mac Support
+=====================================
+Currently dcloud assumes network access to the containers.  This will not work for macs, so a simpler solution is given for mac support: dcloud inside docker.
+
+To get this running, run the following
+
+    docker run -t -i --privileged dcapwell/dcloud:0.1
