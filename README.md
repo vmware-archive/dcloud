@@ -201,6 +201,11 @@ To get this running, run the following
 
     docker run -t -i --privileged dcapwell/dcloud:0.1
 
+TODO
+---------------------
+
+Update docs once the pivotal domain has been registered with docker registry and a dcloud image is hosted there.
+
 Internal Docker Release
 =====================================
 
