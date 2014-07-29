@@ -19,14 +19,31 @@ VERSION = "0.1"
 
 INSTALL_FILE = "installedFiles.txt"
 
+# Installs dcloud on the host environment
 install: $(INSTALL_FILE)
 	@python setup.py install --record $(INSTALL_FILE)
 
+# uninstall dcloud on the host environment
 uninstall:
 	@cat $(INSTALL_FILE) | xargs rm -rf
 
-docker: docker-build
+# builds and runs the docker file.
+# this will spinoff a new docker container running dcloud
+# useful for mac users and anyone who doesnt want to
+# install on the host environment
+docker: docker-build docker-run
 
+# builds the docker image for dcloud
 docker-build:
 	@echo "Building docker image: $(DOMAIN)/$(NAME):$(VERSION)"
 	@docker build -t "$(DOMAIN)/$(NAME):$(VERSION)" .
+
+# push a existing dcloud image to the docker registry
+docker-push:
+	@docker push "$(DOMAIN)/$(NAME):$(VERSION)"
+
+# run dcloud in a docker container.
+# assumes that docker-build has already run for the given
+# domain/name/version
+docker-run:
+	@docker run -t -i --privileged "$(DOMAIN)/$(NAME):$(VERSION)"
