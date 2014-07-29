@@ -17,11 +17,13 @@ DOMAIN = "pivotal"
 NAME = "dcloud"
 VERSION = "0.1"
 
-build: 
-	@python setup.py install --record installedFiles.txt
+INSTALL_FILE = "installedFiles.txt"
+
+install: $(INSTALL_FILE)
+	@python setup.py install --record $(INSTALL_FILE)
 
 uninstall:
-	@cat installedFiles.txt | xargs rm -rf
+	@cat $(INSTALL_FILE) | xargs rm -rf
 
 docker: docker-build
 
