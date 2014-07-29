@@ -200,3 +200,12 @@ Currently dcloud assumes network access to the containers.  This will not work f
 To get this running, run the following
 
     docker run -t -i --privileged dcapwell/dcloud:0.1
+
+Internal Docker Release
+=====================================
+
+The provided `Makefile` supports building docker images under any domain provided
+
+    DOMAIN=mydomainhere make --environment-overrides docker
+
+The above example will create a docker image named `mydomainhere/dcloud:0.1`
