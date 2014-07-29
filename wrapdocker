@@ -88,6 +88,7 @@ rm -rf /var/run/docker.pid
 if [ "$PORT" ]
 then
 	exec docker -d -H 0.0.0.0:$PORT
+  /usr/local/bin/dcloud init
 else
 	if [ "$LOG" == "file" ]
 	then
@@ -95,5 +96,6 @@ else
 	else
 		docker -d &
 	fi
+  /usr/local/bin/dcloud init
 	exec bash
 fi
