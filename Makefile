@@ -40,7 +40,7 @@ docker-build:
 
 # push a existing dcloud image to the docker registry
 docker-push:
-	@docker push "$(DOMAIN)/$(NAME):$(VERSION)"
+	@docker push "$(DOMAIN)/$(NAME)"
 
 # run dcloud in a docker container.
 # assumes that docker-build has already run for the given
