@@ -13,7 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-DOMAIN = "dcapwell"
+DOMAIN = "dcloud"
 NAME = "dcloud"
 VERSION = "0.2"
 
@@ -36,14 +36,14 @@ docker: docker-build docker-run
 # builds the docker image for dcloud
 docker-build:
 	@echo "Building docker image: $(DOMAIN)/$(NAME):$(VERSION)"
-	@docker build -t "$(DOMAIN)/dns_base:$(VERSION)" $(DOMAIN)/dns_base
-	@docker build -t "$(DOMAIN)/ssh_base:$(VERSION)" $(DOMAIN)/ssh_base
+	@docker build -t "$(DOMAIN)/ssh-base:$(VERSION)" dcloud/ssh_base
+	@docker build -t "$(DOMAIN)/dns-base:$(VERSION)" dcloud/dns_base
 	@docker build -t "$(DOMAIN)/$(NAME):$(VERSION)" .
 
 # push a existing dcloud image to the docker registry
 docker-push:
-	@docker push "$(DOMAIN)/dns_base"
-	@docker push "$(DOMAIN)/ssh_base"
+	@docker push "$(DOMAIN)/ssh-base"
+	@docker push "$(DOMAIN)/dns-base"
 	@docker push "$(DOMAIN)/$(NAME)"
 
 # run dcloud in a docker container.
