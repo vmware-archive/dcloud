@@ -22,7 +22,9 @@ import docker
 from utils import ssh
 from utils import cmdutil
 
-COMMAND_INIT = "init"
+DOMAIN = "dcapwell"
+VERSION = "0.2"
+
 COMMAND_CREATE = "create"
 COMMAND_LIST = "list"
 COMMAND_HOSTSFILE = "hostsfile"
@@ -31,8 +33,7 @@ COMMAND_SNAPSHOT = "snapshot"
 COMMAND_DELETESNAPSHOT = "deletesnapshot"
 COMMAND_ARCHIVE = "archive"
 
-REPO_SSH_BASE = "dcloud/ssh-base"
-REPO_DNS_BASE = "dcloud/dns-base"
+REPO_DNS_BASE = "{0}/dns_base:{1}".format(DOMAIN, VERSION)
 
 class RunResult:
     dns = ""
@@ -42,7 +43,6 @@ _WORK_DIR = "/tmp/dcloud_work"
 
 def usage():
     print "Usage:"
-    print "  " + COMMAND_INIT + ":      Initialization. Create a few base images that dcloud uses"
     print "  " + COMMAND_CREATE + ":    Create dcloud cluster. dcloud "
     print "  " + COMMAND_LIST + ":      List dcloud clusters"
     print "  " + COMMAND_HOSTSFILE + ": Outputs hosts file format to a specified file. Users can redirect it to /etc/hosts"
@@ -55,26 +55,6 @@ def usageCreate():
     print "usage:  dcloud create [-id <cluster_id>] <dcluster_config file>"
     print "  -id option overrides the clusterId specified in the config file"
     print "  e.g. dcloud create example/cluster_from_images.json"
-    
-def buildSshBase():
-    docker_file_location = os.path.join(os.path.dirname(__file__), 'ssh_base/.')
-    print "docker_file_location:" + docker_file_location
-    subprocess.call(["docker", "build", "-t", REPO_SSH_BASE, docker_file_location])
-
-def buildNetworkBase():
-    docker_file_location = os.path.join(os.path.dirname(__file__), 'dns_base/.')
-    print "docker_file_location:" + docker_file_location
-    subprocess.call(["docker", "build", "-t", REPO_DNS_BASE, docker_file_location])
-
-
-def isInitialized():
-    return docker.imageExist(REPO_SSH_BASE) and docker.imageExist(REPO_DNS_BASE)
-
-def init():
-    if not isInitialized():
-        buildSshBase()
-        buildNetworkBase()
-
 
 def _parseHostname(exp):
     '''
@@ -123,10 +103,6 @@ def create(clusterConfigFilePath, overrideClusterId):
        "hosts": "172.17.0.2 master\n172.17.0.3 slave1\n172.17.04 slave2"
     }
     '''
-    
-    if not isInitialized():
-        print "initialize first"
-        return 1
     
     dnsServerAddress = None
     hosts = ""
@@ -378,9 +354,6 @@ def main():
 
         destroy(sys.argv[2])
 
-    elif command == COMMAND_INIT:
-        init()
-        
     elif command == COMMAND_CREATE:
         try:
             conffile, overrideClusterId = parseCreateParams(sys.argv[2:])
