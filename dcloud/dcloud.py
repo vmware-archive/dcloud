@@ -22,7 +22,7 @@ import docker
 from utils import ssh
 from utils import cmdutil
 
-DOMAIN = "dcloud"
+NAMESPACE = "dcloud"
 VERSION = "0.2"
 
 COMMAND_CREATE = "create"
@@ -33,7 +33,7 @@ COMMAND_SNAPSHOT = "snapshot"
 COMMAND_DELETESNAPSHOT = "deletesnapshot"
 COMMAND_ARCHIVE = "archive"
 
-REPO_DNS_BASE = "{0}/dns-base:{1}".format(DOMAIN, VERSION)
+REPO_DNS_BASE = "{0}/dns-base:{1}".format(NAMESPACE, VERSION)
 
 class RunResult:
     dns = ""
