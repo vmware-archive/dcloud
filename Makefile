@@ -33,6 +33,8 @@ uninstall:
 # install on the host environment
 docker: docker-build docker-run
 
+docker-release: docker-build docker-push
+
 # builds the docker image for dcloud
 docker-build:
 	@echo "Building docker image: $(NAMESPACE)/$(NAME):$(VERSION)"
