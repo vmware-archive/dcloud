@@ -15,7 +15,7 @@
 
 DOMAIN = "dcapwell"
 NAME = "dcloud"
-VERSION = "0.1"
+VERSION = "0.2"
 
 INSTALL_FILE = "installedFiles.txt"
 
