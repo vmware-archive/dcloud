@@ -24,7 +24,7 @@ CGROUP=/sys/fs/cgroup
 
 mountpoint -q $CGROUP || 
 	mount -n -t tmpfs -o uid=0,gid=0,mode=0755 cgroup $CGROUP || {
-		echo "Could not make a tmpfs mount. Did you use -privileged?"
+		echo "Could not make a tmpfs mount. Did you use --privileged?"
 		exit 1
 	}
 
@@ -32,7 +32,7 @@ if [ -d /sys/kernel/security ] && ! mountpoint -q /sys/kernel/security
 then
     mount -t securityfs none /sys/kernel/security || {
         echo "Could not mount /sys/kernel/security."
-        echo "AppArmor detection and -privileged mode might break."
+        echo "AppArmor detection and --privileged mode might break."
     }
 fi
 
@@ -98,19 +98,10 @@ popd >/dev/null
 # delete it so that docker can start.
 rm -rf /var/run/docker.pid
 
-# If we were given a PORT environment variable, start as a simple daemon;
-# otherwise, spawn a shell as well
-if [ "$PORT" ]
-then
-	exec docker -d -H 0.0.0.0:$PORT
-  /usr/local/bin/dcloud init
+docker -d &>/var/log/docker.log &
+
+if [ $# -eq 0 ]; then
+  exec bash
 else
-	if [ "$LOG" == "file" ]
-	then
-		docker -d &>/var/log/docker.log &
-	else
-		docker -d &
-	fi
-  /usr/local/bin/dcloud init
-	exec bash
+  exec "$@"
 fi

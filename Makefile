@@ -50,4 +50,4 @@ docker-push:
 # assumes that docker-build has already run for the given
 # domain/name/version
 docker-run:
-	@docker run -t -i --privileged "$(DOMAIN)/$(NAME):$(VERSION)"
+	@docker run -t -i --volume /var/lib/docker:/var/lib/docker --privileged "$(DOMAIN)/$(NAME):$(VERSION)"
