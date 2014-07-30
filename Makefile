@@ -13,9 +13,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-DOMAIN = "pivotal"
+NAMESPACE = "dcloud"
 NAME = "dcloud"
-VERSION = "0.1"
+VERSION = "0.2"
 
 INSTALL_FILE = "installedFiles.txt"
 
@@ -33,17 +33,23 @@ uninstall:
 # install on the host environment
 docker: docker-build docker-run
 
+docker-release: docker-build docker-push
+
 # builds the docker image for dcloud
 docker-build:
-	@echo "Building docker image: $(DOMAIN)/$(NAME):$(VERSION)"
-	@docker build -t "$(DOMAIN)/$(NAME):$(VERSION)" .
+	@echo "Building docker image: $(NAMESPACE)/$(NAME):$(VERSION)"
+	@docker build -t "$(NAMESPACE)/ssh-base:$(VERSION)" dcloud/ssh_base
+	@docker build -t "$(NAMESPACE)/dns-base:$(VERSION)" dcloud/dns_base
+	@docker build -t "$(NAMESPACE)/$(NAME):$(VERSION)" .
 
 # push a existing dcloud image to the docker registry
 docker-push:
-	@docker push "$(DOMAIN)/$(NAME)"
+	@docker push "$(NAMESPACE)/ssh-base"
+	@docker push "$(NAMESPACE)/dns-base"
+	@docker push "$(NAMESPACE)/$(NAME)"
 
 # run dcloud in a docker container.
 # assumes that docker-build has already run for the given
 # domain/name/version
 docker-run:
-	@docker run -t -i --privileged "$(DOMAIN)/$(NAME):$(VERSION)"
+	@docker run -t -i --volume /var/lib/docker:/var/lib/docker --privileged "$(NAMESPACE)/$(NAME):$(VERSION)"

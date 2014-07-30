@@ -101,17 +101,6 @@ How to use dcloud
 =======================
 Please note that you run dcloud command as root user at this point. We have a ticket to fix this limitation https://github.com/gopivotal/dcloud/issues/2
 
-Initialization
----------------
-Make sure docker service is running
-
-*init* command lets your environment create a few images that dcloud requires
-
-```
-service docker start
-dcloud init
-```
-
 How to create a dcloud cluster
 -----------------
 ### Example with image
