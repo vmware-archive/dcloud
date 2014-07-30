@@ -99,9 +99,4 @@ popd >/dev/null
 rm -rf /var/run/docker.pid
 
 docker -d &>/var/log/docker.log &
-
-if [ $# -eq 0 ]; then
-  exec bash
-else
-  exec "$@"
-fi
+exec bash
