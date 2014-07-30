@@ -188,18 +188,39 @@ Currently dcloud assumes network access to the containers.  This will not work f
 
 To get this running, run the following
 
-    docker run -t -i --privileged dcapwell/dcloud:0.1
+    docker run -t -i --privileged dcloud/dcloud:0.2
+
+This will Mac users to run a Docker image from docker.io that contains dcloud, open up a bash shell and run dcloud.
 
 TODO
 ---------------------
 
-Update docs once the pivotal domain has been registered with docker registry and a dcloud image is hosted there.
+Update docs once the pivotal namespace has been registered with docker registry and a dcloud image is hosted there.
 
-Internal Docker Release
+How to make artifacts
 =====================================
 
-The provided `Makefile` supports building docker images under any domain provided
+This section talks about how to make dcloud distributable artifacts. Currently we have only one option, docker image.
 
-    DOMAIN=mydomainhere make --environment-overrides docker
+Docker image
+-----------------------
 
-The above example will create a docker image named `mydomainhere/dcloud:0.1`
+The provided `Makefile` supports building docker images under any namespace provided
+
+    NAMESPACE=mynamespacehere make --environment-overrides docker-build
+
+The above example will create a docker image named `mynamespacehere/dcloud:0.2`
+
+### If you want to publish the image to docker.io
+
+    docker login 
+
+then
+
+    make docker-push 
+
+or
+
+    make docker-release # which will build images and push to docker.io
+
+
