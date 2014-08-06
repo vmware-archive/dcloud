@@ -155,6 +155,10 @@ def create(clusterConfigFilePath, overrideClusterId):
                 cmd.append("--dns")
                 cmd.append(dnsIp)
 
+        if "domain" in clusterConfig:
+            cmd.append("--dns-search")
+            cmd.append(clusterConfig["domain"])
+
         cmd.append("--name")
         cmd.append(container_name)
 
