@@ -4,9 +4,17 @@
 	"dns" : ["8.8.8.8", "8.8.4.4"],
 	"nodes": [
 		{
-			"hostname" : "node[1..3]",
+			"hostname" : "node1",
 			"imageName" : "dcloud/ssh-base:0.2",
-			"cmd" : "service sshd start && tail -f /var/log/yum.log"
+			"cmd" : "service sshd start && tail -f /var/log/yum.log",
+			"volumes" : ["/tmp:/tmp"],
+			"ports" : ["80:80"]
+		},
+		{
+			"hostname" : "node[2..3]",
+			"imageName" : "dcloud/ssh-base:0.2",
+			"cmd" : "service sshd start && tail -f /var/log/yum.log",
+			"volumes" : ["/tmp:/tmp"]
 		}
 	]
 }

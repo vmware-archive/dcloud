@@ -167,6 +167,11 @@ def create(clusterConfigFilePath, overrideClusterId):
                 cmd.append("-v")
                 cmd.append(volumn)
 
+        if "ports" in node:
+            for port in node["ports"]:
+                cmd.append("-p")
+                cmd.append(port)
+
         cmd.append(node["imageName"])
         cmd.append("bash")
         cmd.append("-c")
