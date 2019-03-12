@@ -5,7 +5,7 @@
 # Version 2.0 (the "License”); you may not use this file except in compliance
 # with the License. You may obtain a copy of the License at
 #
-# http://www.apache.org/licenses/LICENSE-2.0
+# https://www.apache.org/licenses/LICENSE-2.0
 #
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
@@ -35,7 +35,7 @@ RUN sed -ri 's/UsePAM yes/UsePAM no/g' /etc/ssh/sshd_config
 # ssh login is slow. This is due to GSS authentication.
 # e.g. debug1: Unspecified GSS failure.  Minor code may provide more information
 # Referred this to improve.
-# http://injustfiveminutes.com/2013/03/13/fixing-ssh-login-long-delay/
+# https://injustfiveminutes.com/2013/03/13/fixing-ssh-login-long-delay/
 RUN sed -ri 's/GSSAPIAuthentication yes/GSSAPIAuthentication no/g' /etc/ssh/sshd_config
 
 
