@@ -76,7 +76,7 @@ https://www.docker.io/gettingstarted/#h_installation
 This is a handy unofficial note for Docker installation on Centos. Please refer to the Docker official page for detail.
 
 ```
-sudo yum install http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
+sudo yum install https://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
 sudo yum update -y
 sudo yum -y install docker-io
 sudo service docker start

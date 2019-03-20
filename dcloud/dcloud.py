@@ -348,7 +348,7 @@ def main():
         return 1
         
     if not docker.installed():
-        print "docker command is not available. Follow the installation document http://docs.docker.io/installation and install docker"
+        print "docker command is not available. Follow the installation document https://docs.docker.io/installation and install docker"
         return 1
 
     command = sys.argv[1]
